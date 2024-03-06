@@ -1,0 +1,652 @@
+                                                 DDL
+
+1. create table Employee(Emp_no int primary key,E_name varchar(50) not null,E_address varchar(100),E_ph_no varchar(12),Dept_name varchar(20),job_id int,salary decimal(10,2));
+Query OK, 0 rows affected (0.15 sec)
+ create table DEPARTMENT (Dept_no int primary key,Emp_no int,Emp_name varchar(220));
+Query OK, 0 rows affected (0.04 sec)
+
+2. alter table EMPLOYEE add hiredate date;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+3. alter table Employee drop column hiredate;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+4.drop table Employee;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> truncate table Employee;
+ERROR 1146 (42S02): Table 'bibin.employee' doesn't exist
+mysql> drop table DEPARTMENT;
+Query OK, 0 rows affected (0.01 sec)
+
+
+                                      DML
+
+1.mysql> create table Employee(Emp_no int primary key,E_name varchar(50) not null,salary decimal(10,2));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table department(Emp_no int primary key,dept_name varchar(50));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO Employee (Emp_no, E_name, Salary) VALUES (201, 'John', 50000),(202, 'Alice', 60000),(203, 'Bob', 55000),(204, 'Charlie', 70000),(205, 'David', 10000);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from Employee;
++--------+---------+----------+
+| Emp_no | E_name  | salary   |
++--------+---------+----------+
+|    201 | John    | 50000.00 |
+|    202 | Alice   | 60000.00 |
+|    203 | Bob     | 55000.00 |
+|    204 | Charlie | 70000.00 |
+|    205 | David   | 10000.00 |
++--------+---------+----------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT INTO department (Emp_no, Dept_name) VALUES (201, 'IT'),(202, 'HR'),(203, 'Finance'),(204, 'Marketing'),(205, 'Sales');
+Query OK, 5 rows affected (0.02 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from department;
++--------+-----------+
+| Emp_no | dept_name |
++--------+-----------+
+|    201 | IT        |
+|    202 | HR        |
+|    203 | Finance   |
+|    204 | Marketing |
+|    205 | Sales     |
++--------+-----------+
+5 rows in set (0.00 sec)
+
+2.  UPDATE Employee SET E_name = 'UpdatedName' WHERE Emp_no = 202;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Employee;
++--------+-------------+----------+
+| Emp_no | E_name      | salary   |
++--------+-------------+----------+
+|    201 | John        | 50000.00 |
+|    202 | UpdatedName | 60000.00 |
+|    203 | Bob         | 55000.00 |
+|    204 | Charlie     | 70000.00 |
+|    205 | David       | 10000.00 |
++--------+-------------+----------+
+5 rows in set (0.00 sec)
+
+3.  DELETE FROM department WHERE E_name = 'Raju';
+ERROR 1054 (42S22): Unknown column 'E_name' in 'where clause'
+
+5. mysql> SELECT E_name AS ename, Salary AS sal FROM Employee;
++-------------+----------+
+| ename       | sal      |
++-------------+----------+
+| John        | 50000.00 |
+| UpdatedName | 60000.00 |
+| Bob         | 55000.00 |
+| Charlie     | 70000.00 |
+| David       | 10000.00 |
++-------------+----------+
+5 rows in set (0.01 sec)
+
+6.mysql> INSERT INTO Employee (Emp_no, E_name, Salary) VALUES (206, NULL, 45000),(207, 'Eva', NULL),(208, 'John', 50000),(209, 'Alice', 60000);
+ERROR 1048 (23000): Column 'E_name' cannot be null
+mysql> select  * from Employee;
++--------+-------------+----------+
+| Emp_no | E_name      | salary   |
++--------+-------------+----------+
+|    201 | John        | 50000.00 |
+|    202 | UpdatedName | 60000.00 |
+|    203 | Bob         | 55000.00 |
+|    204 | Charlie     | 70000.00 |
+|    205 | David       | 10000.00 |
++--------+-------------+----------+
+5 rows in set (0.00 sec)
+
+7.mysql> SELECT E_name FROM Employee WHERE Emp_no = 204;
++---------+
+| E_name  |
++---------+
+| Charlie |
++---------+
+1 row in set (0.01 sec)
+
+8.mysql> SELECT E_name FROM Employee WHERE Salary = 10000;
++--------+
+| E_name |
++--------+
+| David  |
++--------+
+1 row in set (0.02 sec)
+
+9.mysql> UPDATE Employee SET Salary = 50000 WHERE Emp_no = 205;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Empoyee;
+ERROR 1146 (42S02): Table 'bibin.empoyee' doesn't exist
+mysql> select * from Employee;
++--------+-------------+----------+
+| Emp_no | E_name      | salary   |
++--------+-------------+----------+
+|    201 | John        | 50000.00 |
+|    202 | UpdatedName | 60000.00 |
+|    203 | Bob         | 55000.00 |
+|    204 | Charlie     | 70000.00 |
+|    205 | David       | 50000.00 |
++--------+-------------+----------+
+5 rows in set (0.00 sec)
+
+                                                    DCL
+
+1. create user 'username'@'localhost' identified by 'password';
+Query OK, 0 rows affected (0.22 sec)
+
+2.grant all privileges on database_name.departments to 'username'@'localhost';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> revoke all privileges on database_name.departments from 'username'@'localhost';
+Query OK, 0 rows affected (0.02 sec)
+
+3.
+
+
+                                        TCL
+
+1.     mysql> start TRANSACTION;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO Employee VALUES (4, 'John Do', 50000),(5, 'Jane Smit', 60000),(6, 'Bo Johnson', 55000);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from Employee;
++--------+-------------+----------+
+| Emp_no | E_name      | salary   |
++--------+-------------+----------+
+|      1 | John Doe    | 50000.00 |
+|      2 | Jane Smith  | 60000.00 |
+|      3 | Bob Johnson | 55000.00 |
+|      4 | John Do     | 50000.00 |
+|      5 | Jane Smit   | 60000.00 |
+|      6 | Bo Johnson  | 55000.00 |
+|    201 | John        | 50000.00 |
+|    202 | UpdatedName | 60000.00 |
+|    203 | Bob         | 55000.00 |
+|    204 | Charlie     | 70000.00 |
+|    205 | David       | 50000.00 |
++--------+-------------+----------+
+11 rows in set (0.00 sec)
+
+mysql> ROLLBACK;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from Employee;
++--------+-------------+----------+
+| Emp_no | E_name      | salary   |
++--------+-------------+----------+
+|      1 | John Doe    | 50000.00 |
+|      2 | Jane Smith  | 60000.00 |
+|      3 | Bob Johnson | 55000.00 |
+|    201 | John        | 50000.00 |
+|    202 | UpdatedName | 60000.00 |
+|    203 | Bob         | 55000.00 |
+|    204 | Charlie     | 70000.00 |
+|    205 | David       | 50000.00 |
++--------+-------------+----------+
+8 rows in set (0.00 sec)
+
+2.    mysql> start TRANSACTION;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> INSERT INTO Employee VALUES (4, 'John Do', 50000),(5, 'Jane Smit', 60000),(6, 'Bo Johnson', 55000);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from Employee;
++--------+-------------+----------+
+| Emp_no | E_name      | salary   |
++--------+-------------+----------+
+|      1 | John Doe    | 50000.00 |
+|      2 | Jane Smith  | 60000.00 |
+|      3 | Bob Johnson | 55000.00 |
+|      4 | John Do     | 50000.00 |
+|      5 | Jane Smit   | 60000.00 |
+|      6 | Bo Johnson  | 55000.00 |
+|    201 | John        | 50000.00 |
+|    202 | UpdatedName | 60000.00 |
+|    203 | Bob         | 55000.00 |
+|    204 | Charlie     | 70000.00 |
+|    205 | David       | 50000.00 |
++--------+-------------+----------+
+11 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from Employee;
++--------+-------------+----------+
+| Emp_no | E_name      | salary   |
++--------+-------------+----------+
+|      1 | John Doe    | 50000.00 |
+|      2 | Jane Smith  | 60000.00 |
+|      3 | Bob Johnson | 55000.00 |
+|      4 | John Do     | 50000.00 |
+|      5 | Jane Smit   | 60000.00 |
+|      6 | Bo Johnson  | 55000.00 |
+|    201 | John        | 50000.00 |
+|    202 | UpdatedName | 60000.00 |
+|    203 | Bob         | 55000.00 |
+|    204 | Charlie     | 70000.00 |
+|    205 | David       | 50000.00 |
++--------+-------------+----------+
+11 rows in set (0.00 sec)
+
+
+                   E.ACCESING DATABASE.
+
+1. mysql> CREATE TABLE Purchase (
+    ->     purchaseNo INT PRIMARY KEY,
+    ->     salesman VARCHAR(50),
+    ->     salesmanid INT,
+    ->     item VARCHAR(50),
+    ->     amount DECIMAL(10, 2),
+    ->     branch VARCHAR(50),
+    ->     DOB DATE
+    -> );
+Query OK, 0 rows affected (0.14 sec)
+
+2. mysql> INSERT INTO Purchase VALUES
+    -> (1, 'John Doe', 101, 'Product A', 2500.00, 'Branch A', '1990-01-15'),
+    -> (2, 'Jane Smith', 102, 'Product B', 3500.00, 'Branch B', '1985-05-20'),
+    -> (3, 'Bob Johnson', 103, 'Product C', 4000.00, 'Branch A', '1988-09-10'),
+    -> (4, 'Alice Brown', 104, 'Product D', 2800.00, 'Branch C', '1992-03-25'),
+    -> (5, 'Charlie White', 105, 'Product E', 3200.00, 'Branch B', '1995-11-05'),
+    -> (6, 'Eva Black', 106, 'Product F', 4500.00, 'Branch C', '1990-07-12');
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from purchase;
++------------+---------------+------------+-----------+---------+----------+------------+
+| purchaseNo | salesman      | salesmanid | item      | amount  | branch   | DOB        |
++------------+---------------+------------+-----------+---------+----------+------------+
+|          1 | John Doe      |        101 | Product A | 2500.00 | Branch A | 1990-01-15 |
+|          2 | Jane Smith    |        102 | Product B | 3500.00 | Branch B | 1985-05-20 |
+|          3 | Bob Johnson   |        103 | Product C | 4000.00 | Branch A | 1988-09-10 |
+|          4 | Alice Brown   |        104 | Product D | 2800.00 | Branch C | 1992-03-25 |
+|          5 | Charlie White |        105 | Product E | 3200.00 | Branch B | 1995-11-05 |
+|          6 | Eva Black     |        106 | Product F | 4500.00 | Branch C | 1990-07-12 |
++------------+---------------+------------+-----------+---------+----------+------------+
+6 rows in set (0.00 sec)
+
+3. mysql> SELECT
+    ->     branch,
+    ->     SUM(amount) AS totalAmount,
+    ->     AVG(amount) AS averageAmount
+    -> FROM Purchase
+    -> GROUP BY branch;
++----------+-------------+---------------+
+| branch   | totalAmount | averageAmount |
++----------+-------------+---------------+
+| Branch A |     6500.00 |   3250.000000 |
+| Branch B |     6700.00 |   3350.000000 |
+| Branch C |     7300.00 |   3650.000000 |
++----------+-------------+---------------+
+3 rows in set (0.01 sec)
+
+4. mysql> SELECT COUNT(*) AS numberOfSalesmen
+    -> FROM Purchase
+    -> WHERE amount < 3000.00;
++------------------+
+| numberOfSalesmen |
++------------------+
+|                2 |
++------------------+
+1 row in set (0.01 sec)
+
+5. mysql> SELECT salesman
+    -> FROM Purchase
+    -> ORDER BY salesman;
++---------------+
+| salesman      |
++---------------+
+| Alice Brown   |
+| Bob Johnson   |
+| Charlie White |
+| Eva Black     |
+| Jane Smith    |
+| John Doe      |
++---------------+
+6 rows in set (0.04 sec)
+
+
+                                          F
+
+1. mysql> CREATE TABLE Emp (
+    ->     EmpNo INT PRIMARY KEY,
+    ->     EmpName VARCHAR(50),
+    ->     Job VARCHAR(50),
+    ->     Basic DECIMAL(10, 2),
+    ->     DA DECIMAL(10, 2),
+    ->     HRA DECIMAL(10, 2),
+    ->     PF DECIMAL(10, 2),
+    ->     GrossPay DECIMAL(10, 2),
+    ->     NetPay DECIMAL(10, 2)
+    -> );
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> INSERT INTO Emp (EmpNo, EmpName, Job, Basic, DA, HRA, PF, GrossPay, NetPay)
+    -> VALUES
+    -> (1, 'John Doe', 'Manager', 50000.00, 15000.00, 20000.00, 5000.00, 0.00, 0.00),
+    -> (2, 'Jane Smith', 'Developer', 40000.00, 12000.00, 16000.00, 4000.00, 0.00, 0.00),
+    -> (3, 'Bob Johnson', 'Analyst', 45000.00, 13500.00, 18000.00, 4500.00, 0.00, 0.00),
+    -> (4, 'Alice Brown', 'Designer', 35000.00, 10500.00, 14000.00, 3500.00, 0.00, 0.00),
+    -> (5, 'Charlie White', 'Tester', 30000.00, 9000.00, 12000.00, 3000.00, 0.00, 0.00);
+Query OK, 5 rows affected (0.02 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from Emp;
++-------+---------------+-----------+----------+----------+----------+---------+----------+--------+
+| EmpNo | EmpName       | Job       | Basic    | DA       | HRA      | PF      | GrossPay | NetPay |
++-------+---------------+-----------+----------+----------+----------+---------+----------+--------+
+|     1 | John Doe      | Manager   | 50000.00 | 15000.00 | 20000.00 | 5000.00 |     0.00 |   0.00 |
+|     2 | Jane Smith    | Developer | 40000.00 | 12000.00 | 16000.00 | 4000.00 |     0.00 |   0.00 |
+|     3 | Bob Johnson   | Analyst   | 45000.00 | 13500.00 | 18000.00 | 4500.00 |     0.00 |   0.00 |
+|     4 | Alice Brown   | Designer  | 35000.00 | 10500.00 | 14000.00 | 3500.00 |     0.00 |   0.00 |
+|     5 | Charlie White | Tester    | 30000.00 |  9000.00 | 12000.00 | 3000.00 |     0.00 |   0.00 |
++-------+---------------+-----------+----------+----------+----------+---------+----------+--------+
+5 rows in set (0.01 sec)
+
+2. mysql> UPDATE Emp
+    -> SET
+    ->     DA = Basic * 0.30,
+    ->     HRA = Basic * 0.40,
+    ->     GrossPay = Basic + DA + HRA,
+    ->     NetPay = Basic + DA + HRA - PF;
+Query OK, 5 rows affected (0.05 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select * from Emp;
++-------+---------------+-----------+----------+----------+----------+---------+----------+----------+
+| EmpNo | EmpName       | Job       | Basic    | DA       | HRA      | PF      | GrossPay | NetPay   |
++-------+---------------+-----------+----------+----------+----------+---------+----------+----------+
+|     1 | John Doe      | Manager   | 50000.00 | 15000.00 | 20000.00 | 5000.00 | 85000.00 | 80000.00 |
+|     2 | Jane Smith    | Developer | 40000.00 | 12000.00 | 16000.00 | 4000.00 | 68000.00 | 64000.00 |
+|     3 | Bob Johnson   | Analyst   | 45000.00 | 13500.00 | 18000.00 | 4500.00 | 76500.00 | 72000.00 |
+|     4 | Alice Brown   | Designer  | 35000.00 | 10500.00 | 14000.00 | 3500.00 | 59500.00 | 56000.00 |
+|     5 | Charlie White | Tester    | 30000.00 |  9000.00 | 12000.00 | 3000.00 | 51000.00 | 48000.00 |
++-------+---------------+-----------+----------+----------+----------+---------+----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT EmpNo, EmpName, Job, Basic
+    -> FROM (
+    ->     SELECT EmpNo, EmpName, Job, Basic,
+    ->            ROW_NUMBER() OVER (PARTITION BY Job ORDER BY Basic ASC) AS RowNum
+    ->     FROM Emp
+    -> ) Ranked
+    -> WHERE RowNum = 1;
++-------+---------------+-----------+----------+
+| EmpNo | EmpName       | Job       | Basic    |
++-------+---------------+-----------+----------+
+|     3 | Bob Johnson   | Analyst   | 45000.00 |
+|     4 | Alice Brown   | Designer  | 35000.00 |
+|     2 | Jane Smith    | Developer | 40000.00 |
+|     1 | John Doe      | Manager   | 50000.00 |
+|     5 | Charlie White | Tester    | 30000.00 |
++-------+---------------+-----------+----------+
+5 rows in set (0.02 sec)
+
+
+3. mysql> UPDATE Emp
+    -> SET NetPay = NetPay + 1200
+    -> WHERE NetPay < 10000.00;
+Query OK, 0 rows affected (0.02 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from Emp;
++-------+---------------+-----------+----------+----------+----------+---------+----------+----------+
+| EmpNo | EmpName       | Job       | Basic    | DA       | HRA      | PF      | GrossPay | NetPay   |
++-------+---------------+-----------+----------+----------+----------+---------+----------+----------+
+|     1 | John Doe      | Manager   | 50000.00 | 15000.00 | 20000.00 | 5000.00 | 85000.00 | 80000.00 |
+|     2 | Jane Smith    | Developer | 40000.00 | 12000.00 | 16000.00 | 4000.00 | 68000.00 | 64000.00 |
+|     3 | Bob Johnson   | Analyst   | 45000.00 | 13500.00 | 18000.00 | 4500.00 | 76500.00 | 72000.00 |
+|     4 | Alice Brown   | Designer  | 35000.00 | 10500.00 | 14000.00 | 3500.00 | 59500.00 | 56000.00 |
+|     5 | Charlie White | Tester    | 30000.00 |  9000.00 | 12000.00 | 3000.00 | 51000.00 | 48000.00 |
++-------+---------------+-----------+----------+----------+----------+---------+----------+----------+
+5 rows in set (0.04 sec)
+
+4. mysql> SELECT EmpNo, EmpName, GrossPay
+    -> FROM Emp
+    -> WHERE GrossPay BETWEEN 10000.00 AND 20000.00;
+Empty set (0.04 sec)
+
+  mysql> SELECT EmpNo, EmpName, GrossPay  FROM Emp  WHERE GrossPay BETWEEN 10000.00 AND 100000.00;
++-------+---------------+----------+
+| EmpNo | EmpName       | GrossPay |
++-------+---------------+----------+
+|     1 | John Doe      | 85000.00 |
+|     2 | Jane Smith    | 68000.00 |
+|     3 | Bob Johnson   | 76500.00 |
+|     4 | Alice Brown   | 59500.00 |
+|     5 | Charlie White | 51000.00 |
++-------+---------------+----------+
+5 rows in set (0.00 sec)
+
+5.  mysql> SELECT EmpNo, EmpName, Job, GrossPay
+    -> FROM Emp
+    -> WHERE GrossPay = (SELECT MAX(GrossPay) FROM Emp);
++-------+----------+---------+----------+
+| EmpNo | EmpName  | Job     | GrossPay |
++-------+----------+---------+----------+
+|     1 | John Doe | Manager | 85000.00 |
++-------+----------+---------+----------+
+1 row in set (0.03 sec)
+
+                                  G
+
+1. mysql> CREATE TABLE Dept (
+    ->     deptno INT PRIMARY KEY,
+    ->     dname VARCHAR(255),
+    ->     loc VARCHAR(255)
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> INSERT INTO Dept (deptno, dname, loc) VALUES
+    -> (1, 'Sales', 'New York'),
+    -> (2, 'HR', 'London'),
+    -> (3, 'Finance', 'Tokyo'),
+    -> (4, 'IT', 'San Francisco'),
+    -> (5, 'Marketing', 'Paris');
+Query OK, 5 rows affected (0.06 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from Dept;
++--------+-----------+---------------+
+| deptno | dname     | loc           |
++--------+-----------+---------------+
+|      1 | Sales     | New York      |
+|      2 | HR        | London        |
+|      3 | Finance   | Tokyo         |
+|      4 | IT        | San Francisco |
+|      5 | Marketing | Paris         |
++--------+-----------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE TABLE Emp (
+    ->     empno INT PRIMARY KEY,
+    ->     ename VARCHAR(255),
+    ->     job VARCHAR(255),
+    ->     mgr INT,
+    ->     hiredate DATE,
+    ->     sal DECIMAL(10, 2),
+    ->     comm DECIMAL(10, 2),
+    ->     deptno INT,
+    ->     FOREIGN KEY (deptno) REFERENCES Dept(deptno)
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> INSERT INTO Emp (empno, ename, job, mgr, hiredate, sal, comm, deptno) VALUES
+    -> (1, 'John Doe', 'Manager', NULL, '2020-01-15', 50000.00, NULL, 1),
+    -> (2, 'Jane Smith', 'Salesperson', 1, '2021-03-20', 40000.00, 2000.00, 1),
+    -> (3, 'Bob Johnson', 'HR Specialist', 1, '2019-05-10', 45000.00, NULL, 2),
+    -> (4, 'Alice Brown', 'IT Specialist', 1, '2022-02-05', 55000.00, 1000.00, 4),
+    -> (5, 'Charlie Wilson', 'Financial Analyst', 3, '2020-11-08', 48000.00, 1500.00, 3);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from Emp;
++-------+----------------+-------------------+------+------------+----------+---------+--------+
+| empno | ename          | job               | mgr  | hiredate   | sal      | comm    | deptno |
++-------+----------------+-------------------+------+------------+----------+---------+--------+
+|     1 | John Doe       | Manager           | NULL | 2020-01-15 | 50000.00 |    NULL |      1 |
+|     2 | Jane Smith     | Salesperson       |    1 | 2021-03-20 | 40000.00 | 2000.00 |      1 |
+|     3 | Bob Johnson    | HR Specialist     |    1 | 2019-05-10 | 45000.00 |    NULL |      2 |
+|     4 | Alice Brown    | IT Specialist     |    1 | 2022-02-05 | 55000.00 | 1000.00 |      4 |
+|     5 | Charlie Wilson | Financial Analyst |    3 | 2020-11-08 | 48000.00 | 1500.00 |      3 |
++-------+----------------+-------------------+------+------------+----------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE Emp
+    -> SET sal = sal * 1.15
+    -> WHERE hiredate < CURDATE() - INTERVAL 10 YEAR;
+Query OK, 3 rows affected (0.00 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from Emp;
++-------+----------------+-------------------+------+------------+----------+---------+--------+
+| empno | ename          | job               | mgr  | hiredate   | sal      | comm    | deptno |
++-------+----------------+-------------------+------+------------+----------+---------+--------+
+|     1 | John Doe       | Manager           | NULL | 1990-01-15 | 57500.00 |    NULL |      1 |
+|     2 | Jane Smith     | Salesperson       |    1 | 2011-03-20 | 46000.00 | 2000.00 |      1 |
+|     3 | Bob Johnson    | HR Specialist     |    1 | 2019-05-10 | 45000.00 |    NULL |      2 |
+|     4 | Alice Brown    | IT Specialist     |    1 | 2022-02-05 | 55000.00 | 1000.00 |      4 |
+|     5 | Charlie Wilson | Financial Analyst |    3 | 2000-11-08 | 55200.00 | 1500.00 |      3 |
++-------+----------------+-------------------+------+------------+----------+---------+--------+
+5 rows in set (0.00 sec)
+
+2.  mysql> DELETE FROM Emp
+    -> WHERE hiredate <= CURDATE() - INTERVAL 30 YEAR;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from Emp;
++-------+----------------+-------------------+------+------------+----------+---------+--------+
+| empno | ename          | job               | mgr  | hiredate   | sal      | comm    | deptno |
++-------+----------------+-------------------+------+------------+----------+---------+--------+
+|     2 | Jane Smith     | Salesperson       |    1 | 2011-03-20 | 46000.00 | 2000.00 |      1 |
+|     3 | Bob Johnson    | HR Specialist     |    1 | 2019-05-10 | 45000.00 |    NULL |      2 |
+|     4 | Alice Brown    | IT Specialist     |    1 | 2022-02-05 | 55000.00 | 1000.00 |      4 |
+|     5 | Charlie Wilson | Financial Analyst |    3 | 2000-11-08 | 55200.00 | 1500.00 |      3 |
++-------+----------------+-------------------+------+------------+----------+---------+--------+
+4 rows in set (0.00 sec)
+
+3. mysql> SELECT mgr, COUNT(empno) AS num_employees
+    -> FROM Emp
+    -> GROUP BY mgr
+    -> ORDER BY num_employees DESC
+    -> LIMIT 1;
++------+---------------+
+| mgr  | num_employees |
++------+---------------+
+|    1 |             3 |
++------+---------------+
+1 row in set (0.07 sec)
+
+4. mysql> CREATE VIEW EmployeeManagerView AS
+    -> SELECT e.ename AS employee_name, m.ename AS manager_name
+    -> FROM Emp e
+    -> LEFT JOIN Emp m ON e.mgr = m.empno;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> SELECT * FROM  EmployeeManagerView;
++----------------+--------------+
+| employee_name  | manager_name |
++----------------+--------------+
+| Jane Smith     | NULL         |
+| Bob Johnson    | NULL         |
+| Alice Brown    | NULL         |
+| Charlie Wilson | Bob Johnson  |
++----------------+--------------+
+4 rows in set (0.06 sec)
+
+                                        H
+
+1. mysql> SELECT e.ename
+    -> FROM Emp e
+    -> JOIN Emp m ON e.mgr = m.empno
+    -> WHERE e.sal > m.sal;
++----------------+
+| ename          |
++----------------+
+| Charlie Wilson |
++----------------+
+1 row in set (0.04 sec)
+
+2.  mysql> SELECT e.ename
+    -> FROM Emp e
+    -> WHERE (e.sal, e.deptno) IN (
+    ->     SELECT MAX(sal), deptno
+    ->     FROM Emp
+    ->     GROUP BY deptno
+    -> );
++----------------+
+| ename          |
++----------------+
+| Jane Smith     |
+| Bob Johnson    |
+| Alice Brown    |
+| Charlie Wilson |
++----------------+
+4 rows in set (0.05 sec)
+
+3.  mysql> select * from Emp;
++-------+----------------+-------------------+------+------------+----------+---------+--------+---------+
+| empno | ename          | job               | mgr  | hiredate   | sal      | comm    | deptno | loc     |
++-------+----------------+-------------------+------+------------+----------+---------+--------+---------+
+|     2 | Jane Smith     | Salesperson       |    1 | 2011-03-20 | 46000.00 | 2000.00 |      1 | london  |
+|     3 | Bob Johnson    | HR Specialist     |    1 | 2019-05-10 | 45000.00 |    NULL |      2 | london  |
+|     4 | Alice Brown    | IT Specialist     |    1 | 2022-02-05 | 55000.00 | 1000.00 |      4 | hongong |
+|     5 | Charlie Wilson | Financial Analyst |    3 | 2000-11-08 | 55200.00 | 1500.00 |      3 | india   |
++-------+----------------+-------------------+------+------------+----------+---------+--------+---------+
+4 rows in set (0.00 sec)
+mysql> SELECT e1.ename, e2.ename, e1.loc
+    -> FROM Emp e1
+    -> JOIN Emp e2 ON e1.loc = e2.loc AND e1.empno < e2.empno;
++------------+-------------+--------+
+| ename      | ename       | loc    |
++------------+-------------+--------+
+| Jane Smith | Bob Johnson | london |
++------------+-------------+--------+
+1 row in set (0.00 sec)
+
+4. mysql> SELECT e.ename
+    -> FROM Emp e
+    -> GROUP BY e.empno
+    -> HAVING SUM(e.sal) = (SELECT MIN(total_salary)
+    ->                     FROM (SELECT deptno, SUM(sal) as total_salary
+    ->                           FROM Emp
+    ->                           GROUP BY deptno) AS dept_totals);
++-------------+
+| ename       |
++-------------+
+| Bob Johnson |
++-------------+
+1 row in set (0.00 sec)
+
+5. mysql> SELECT d.dname
+    -> FROM Dept d
+    -> LEFT JOIN Emp e ON d.deptno = e.deptno
+    -> WHERE e.deptno IS NULL;
++-----------+
+| dname     |
++-----------+
+| Marketing |
++-----------+
+1 row in set (0.00 sec)
+
+
+
+
